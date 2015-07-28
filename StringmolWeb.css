@@ -1,0 +1,198 @@
+
+#StringmolWeb {
+  position : relative;
+}
+
+#heading {
+  float : right;
+}
+#heading img {
+  display : inline;
+  padding-bottom : 0.5em;
+  padding-left : 1em;
+}
+
+.column {
+  float : left;
+}
+.clear {
+  clear : both;
+}
+
+.ui-tabs {
+  padding : 0;
+}
+.ui-tabs-nav {
+  padding : 0;
+  border : 0;
+  border-radius : 0;
+}
+
+#fav-chems {
+  width : 10em;
+  font-size : 1.1em;
+}
+#fav-chems h1 {
+  margin : 0;
+  padding : 0;
+  text-align : center;
+}
+
+#fav-chems ul {
+  padding-top : 1em;
+  /*height : 100%;*/
+}
+#fav-chems ul ul { padding : 0; }
+
+.chem-bag {
+  position : relative;
+  margin : 0.5em;
+  margin-bottom : 1.5em;
+  
+  background: url("jquery/css/smoothness/images/index72e5.html?new=aaaaaa&amp;w=40&amp;h=100&amp;f=png&amp;q=100&amp;fltr[]=over|textures/01_flat.png|0|0|0") repeat-x scroll 50% 50% #cccccc;
+  /*opacity: 0.3;*/
+  
+  z-index : 10;
+}
+
+
+.chem-bag.persistent {
+  min-height : 2em;
+}
+
+.chemical, .chemical-receiver {
+  display : block;
+  position : relative;
+  z-index : 15;
+  word-wrap : break-word;
+  margin : 0.1em;
+  padding : 0.1em;
+  background : none;
+  
+  font-size : 1em;
+  font-family : serif;
+}
+
+.chemical span {
+  padding : 0.3em;
+  background-color : #ffffff;
+}
+.chemical span.col {
+  padding : 0;
+  margin-left : 0.1em;
+}
+span.howMany {
+  margin-top : 0.2em;
+  text-align : center;
+}
+span.delete {
+  text-align : center;
+  width : 1em;
+  margin-left : auto;
+}
+
+.chemical span.col {
+  background-color : transparent;
+}
+
+li.chemical div.header span.delete {
+  display : block;
+  float : right;
+  margin : 0;
+  padding : 0;
+}
+li.chemical div.header span.delete span {
+  margin : 0;
+  padding : 0;
+  /*padding : 0.1em 0.5em;*/
+  background-color : transparent;
+}
+
+.chemical .header .name {
+  background-color : transparent;
+}
+
+.chem-drop-active {
+  background: url("jquery/css/smoothness/images/index72e5.html?new=aaaaaa&amp;w=40&amp;h=100&amp;f=png&amp;q=100&amp;fltr[]=over|textures/01_flat.png|0|0|0") repeat-x scroll 50% 50% #ffffcc;
+}
+.chem-drop-hover {
+  background: url("jquery/css/smoothness/images/index72e5.html?new=aaaaaa&amp;w=40&amp;h=100&amp;f=png&amp;q=100&amp;fltr[]=over|textures/01_flat.png|0|0|0") repeat-x scroll 50% 50% #ffff66;
+}
+
+#mutate-button {
+  margin-bottom : 1em;
+}
+
+#bucket-tab h1 {
+  padding-left : 0.5em;
+}
+#start-bucket {
+  padding-top : 1em;
+  margin-bottom : 1em;
+}
+#start-bucket .column {
+  padding-left : 0.5em;
+  padding-right : 0.5em;
+}
+
+#watch-bucket {
+  padding : 1em;
+}
+
+.single .chemical span.delete {
+  display : none !important;
+}
+.single .chemical span.howMany {
+  display : none;
+}
+
+#initialChemicals {
+  min-height : 5em;
+}
+
+/*
+ * Two-mol simulator
+ */
+.two-mol-reaction .close {
+  display : block;
+  float : right;
+}
+.two-mol-reaction .close span {
+  padding : 0.1em 0.5em;
+}
+.two-mol-reaction .reaction-states {
+  display : none;
+}
+
+.hidden {
+  display : none;
+}
+
+.two-mol-reaction .loading img {
+  margin-left : 1em;
+  margin-right : 0.5em;
+}
+
+.two-mol-reaction .heading {
+  padding-left : 0.5em;
+}
+.two-mol-reaction .reaction-content {
+  padding : 0.5em;
+}
+
+.two-mol-reaction .canvas-string {
+  overflow : auto;
+}
+
+.hide {
+  display : none;
+}
+
+/* Hide inactive tabs by moving them, not by "display:none",
+ *  so we can calculate the widths of things inside them.
+ */
+.ui-tabs .ui-tabs-hide {
+    display : block !important;
+    position: absolute;
+    left: -10000px;
+}

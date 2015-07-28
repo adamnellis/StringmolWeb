@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from www.cs.york.ac.uk/nature/plazzmid/external/RUTSAC11/StringmolWeb/StableVersion/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Jul 2015 21:50:37 GMT -->
+<head>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-20281190-4']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+  <link type="text/css" href="jquery/css/smoothness/jquery-ui-1.8.12.custom.css" rel="stylesheet" />	
+  <script type="text/javascript" src="jquery/js/jquery-1.5.1.min.js"></script>
+  <!--<script type="text/javascript" src="jquery/js/jquery-ui-1.8.12.custom.min.js"></script>-->
+  <script type="text/javascript" src="jquery/js/jquery-ui-1.8.14.custom.min.js"></script>
+	
+	<script type="text/javascript" src="jquery/js/jquery.iframe-auto-height.plugin.js"></script>
+	<script type="text/javascript" src="jquery/js/pxem.jQuery.js"></script>
+	<script type="text/javascript" src="jquery/js/jquery.cookie.js"></script>
+	
+	<script src="highcharts/highcharts.js" type="text/javascript"></script>
+
+	<!--[if IE]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
+  <!--<script type="text/javascript" src="canvas.text.js"></script>-->
+	
+	<script type="text/javascript" src="TwoMol.js"></script>
+	<script type="text/javascript" src="BucketGraph.js"></script>
+  <script type="text/javascript" src="StringmolWeb.js"></script>
+  <link type="text/css" href='StringmolWeb.css' rel='stylesheet'>
+  
+  <script type="text/javascript">
+    // global variables for the two-mol
+    var playing = false;
+    var playingTimer;
+    var twoMolIterating = false;
+    var stopTwoMol = false;
+    // global variables for the bucket graph
+		var chart;              // The graph object
+		var timer;              // Timer object for making ajax calls after a delay
+		var timerDelay = 1000;  // How long to wait between graph updated and next ajax call
+		var graphData = [];     // The points on display right now
+		var prevGraphData = []; // Points from before the sliding window
+		var slidingWindowWidth = 100000;
+	</script>
+	
+  <title>StringmolWeb</title>
+</head>
+<body>
+
+  <div id="heading">
+    <a href="http://www.plazzmid.org/" target="_new">
+      <img alt="PLAZZMID project logo" title="The PLAZZMID project"
+          src="../../../../../../../www.plazzmid.org/images/Plazzmid_logo_shiny.png" height="50" />
+    </a>
+  
+    <a href="http://www.cs.york.ac.uk/nature/plazzmid/external/RUTSAC11/index.htm" target="_new">
+      <img alt="RUTSAC workshop logo" title="RUTSAC Workshop: Research Using The Stringmol Artificial Chemistry"
+           src="../../rutsaclogo.png" height="50" />
+    </a>
+  </div>
+  <h1>StringmolWeb</h1>
+  <div class="clear"></div>
+
+  <div id="StringmolWeb">
+
+    <div id="fav-chems">
+      <h1 class="ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-top">Favourite bags of chemicals</h1>
+      <ul class="ui-helper-reset ui-helper-clearfix ui-widget-content ui-corner-bottom">
+
+        <ul class="chem-bag">
+          <chemical name="Original Replicase" number="50" string="OOGEOLHHHRLUEUOBBBRBXUUUDYGRHBLROORE$BLUBO^B>C$=?>$$BLUBO%}OYHOB"></chemical>
+        </ul>
+        
+        <ul class="chem-bag">
+          <chemical name="Broken Replicase" number="50" string="OOGEOLHHHRLUEUOBBBRBXUUUDYGRHBLROORE$BLUBO^B>C$=?A$$BLUBO%}OYHOB"></chemical>
+        </ul>
+        
+        <ul class="chem-bag">
+          <chemical name="Invasion Replicase" number="50" string="OOGEOLHHHRLUEUOBBBRBXUUUDYGRJBLROORE$BLUBO^B>C$=?>$$BLUBO%}OYHOB"></chemical>
+        </ul>
+        
+        <ul class="chem-bag">
+          <chemical name="Neutral mutation Replicase" number="50" string="OOGEOLHHHRLUEUOBBBRBXUUUDYGRHBLROORA$BLUBO^B>C$=?>$$BLUBO%}OYHOB"></chemical>
+        </ul>
+        
+        <ul class="chem-bag">
+          <chemical name="Parasite" number="1" string="OOGEOLHHHRLUEUOEBZZZXUUZZZZZZ"></chemical>
+        </ul>
+        
+        <ul class="chem-bag">
+          <chemical name="Hypercycle 1" number="50" string="OOGEOLHHHRLUEUOBRE$BLUBO^B>C$=?>$$BLUBO%}OYHOB"></chemical>
+          <chemical name="Hypercycle 2" number="50" string="BBBRBXUUUDYGRHBLROORE$BLUBO^B>C$=?>$$BLUBO%}OYHOB"></chemical>
+        </ul>
+        
+        <ul class="chem-bag">
+          <chemical name="Split replicator 1" number="50" string="RBXUUUDYGRHB$=?>$BLUBO%^AOYHOB"></chemical>
+          <chemical name="Split replicator 2" number="50" string="EOLHHHRLUEUO^$BLUBO>C^A^B^$BLUBO>C^$LUEUO>AOYHOB"></chemical>
+        </ul>
+        
+        <ul class="chem-bag">
+          <chemical name="Machine" number="50" string="QTVUUUDYGR$=?>$BLUBO%^AOYHOB"></chemical>
+          <chemical name="Self-Silencer" number="50" string="DGIHHHRLUEUO^$BLUBO>C^A^$XYZ>B^$LTE>A^B^$BLUBO>C^$LTE>A^%^AKLMXYZ>RST>NOP>SILEN>ERBXUUUDYGRHB^$KLM>C^$LTU>B=OHYOB"></chemical>
+        </ul>
+
+        <ul class="chem-bag">
+          <chemical name="Gene Expresser" number="70" string="AAA$JJAAGBJJAGACJJGAADJJGAGEJJGGAFJJAGGHJJGGG^JJAAMIJJAMAJJJMAAKJJMAMLJJMMAOJJAMMNJJMMM>JJMMGPJJMGMQJJGMMRJJGMGSJJGGMTJJMGGUJJAMGVJJAGMWJJGAMXJJGMAYJJMAGZJJDDDAJJDAAGJJADAMJJMDM?JJDAD=JJMMD%JJADD}JJKSKSLYLKKSSS^^A%"></chemical>
+          <chemical name="Original Replicase DNA" number="50" string="XFXFYLYXXFFF$BLUBO>C^$ZZN>B=$ZZN>B=$QNN>B=$TNT>B=$ZZN>B=$ZNZ>B=$NTT>B=$NTT>B=$NTT>B=$TZZ>B=$ZNZ>B=$ZTT>B=$TNT>B=$ZTT>B=$ZZN>B=$NNT>B=$NNT>B=$NNT>B=$TZZ>B=$NNT>B=$TNZ>B=$ZTT>B=$ZTT>B=$ZTT>B=$TNN>B=$TZN>B=$QNN>B=$TZZ>B=$NTT>B=$NNT>B=$ZNZ>B=$TZZ>B=$ZZN>B=$ZZN>B=$TZZ>B=$TNT>B=$NNN>B=$NNT>B=$ZNZ>B=$ZTT>B=$NNT>B=$ZZN>B=$TTT>B=$NNT>B=$ZZZ>B=$NTN>B=$NNN>B=$QNQ>B=$ZQZ>B=$ZZZ>B=$NNN>B=$NNN>B=$NNT>B=$ZNZ>B=$ZTT>B=$NNT>B=$ZZN>B=$ZZQ>B=$NQQ>B=$ZZN>B=$TZN>B=$NTT>B=$ZZN>B=$NNT>B=^^AOHYOB"></chemical>
+        </ul>
+
+        <!--
+        <ul class="chem-bag">
+          <chemical name="" number="1" string="AAA$WNZRF^B>C$=?>$$WNZRF%}JAMES"></chemical>
+          <chemical name="" number="1" string="OOGEOLFGGQLUEUO$BLUBO$OYHOB"></chemical>
+        </ul>
+        -->
+
+      </ul>
+    </div><!-- fav-chems -->
+
+    <div id="tabs">
+    	<ul>
+    		<li><a href="#two-mol-tab">Two-molecules</a></li>
+    		<li><a href="#bucket-tab">Bucket</a></li>
+    		<!--<li><a href="#multiple-bucket-tab">Multiple buckets</a></li>-->
+    		<!--<li><a href="#click-drag-tab">Click and drag test</a></li>-->
+    		<li><a href="#info-tab">Resources</a></li>
+    	</ul>
+    	
+    	<div id="two-mol-tab">
+
+    		<!--<iframe id="twoMolIframe" src="two-mol-sim/StringmolWeb.html" height="700px" frameborder="no"></iframe>-->
+    		<div id="start-two-mol">
+          <div class="column">
+            <p>String 1</p>
+            <ul class="chem-bag persistent single" id="chem1" style="width: 15em;">
+              <chemical name="" number="1" string="OOGEOLHHHRLUEUOBBBRBXUUUDYGRHBLROORE$BLUBO^B>C$=?>$$BLUBO%}OYHOB"></chemical>
+            </ul>
+          </div>
+          
+          <div class="column">
+            <p>String 2</p>
+            <ul class="chem-bag persistent single" id="chem2" style="width: 15em;">
+              <chemical name="" number="1" string="OOGEOLHHHRLUEUOBBBRBXUUUDYGRHBLROORE$BLUBO^B>C$=?>$$BLUBO%}OYHOB"></chemical>
+            </ul>
+          </div>
+          
+          <div class="column">
+            <form>
+              <input type="button" value="New Reaction" id="startTwoMolButton" />
+            </form>
+          </div>
+          
+          <div class="clear"></div>
+    		</div><!-- start-two-mol -->
+    		
+        <div id="two-mol-reactions">
+        </div><!-- two-mol-reactions -->
+
+    	</div>
+    	
+    	<div id="bucket-tab">
+
+        <!--<h1>Start a new bucket simulation</h1>-->
+        <div id="start-bucket">
+        
+          <div class=column>
+            <span style="margin-left:0.5em;">Initial bucket:</span><br />
+            <ul class="chem-bag persistent" id="initialChemicals" style="width: 15em;">
+              <chemical name="example replicase 1" number="50" string="OOGEOLHHHRLUEUOBBBRBXUUUDYGRHBLROORE$BLUBO^B>C$=?>$$BLUBO%}OYHOB"></chemical>
+              <chemical name="example replicase 2" number="50" string="OPGEOLHHHRLUEUOBBBRBXUUUDYGRHBLROORE$BLUBO^B>C$=?>$$BLUBO%}OYHOB"></chemical>
+            </ul>
+          </div>
+          
+          <div class="column">
+            <form>
+              <input type="button" value="Start" id="startButton" />
+            </form>
+          </div>
+          
+          <div class="column">
+            <form>
+              Cell radius: <input type="text" id="cellRadius" value="100.0" size="4" /><br />
+              Agent radius: <input type="text" id="agentRadius" value="10.0" size="3" /><br />
+              Initial energy: <input type="text" id="initialEnergy" value="10000" size="5" /><br />
+              Energy flux: <input type="text" id="energyFlux" value="20" size="5" /><br />
+              Mutation on: <input type="checkbox" id="mutation" name="mutation" checked />
+            </form>
+          </div>
+          
+          <div class="column" id="newBucketColumn">
+            <form>
+              <input type="button" value="Stop this bucket" id="newBucketButton" />
+            </form>
+          </div>
+
+          <div class="clear"></div>
+        </div><!-- start-bucket -->
+
+        <div id="watch-bucket">
+        
+          <div id="chart-container-1" style="width: 100%; height: 400px"></div>
+
+          <div id="graph-extras">
+          <p>
+            Plotting run number <span id="runNumber">-1</span>.
+          </p>
+          <form>
+            <div class="hide">
+            Return <input type="text" id="iterationsPerUpdate" value="50" size="3" /> iterations per graph update. <br />
+            Wait <input type="text" id="timerDelay" value="500" size="5" /> milliseconds between graph updates.
+            </div>
+            Ignore species with fewer than <input type="text" id="ignoreThreshold" value="1" size="3" /> molecules.
+            <input type="button" value="Re-draw graph" id="redrawButton" />
+          </form>
+          </div>
+
+        </div><!-- watch-bucket -->
+
+    	</div>
+    	
+    	<!--
+    	<div id="multiple-bucket-tab">
+    		<p>Multiple bucket simulator goes here...</p>
+    	</div>
+    	-->
+    	
+    	<!--
+    	<div id="click-drag-tab">
+    	
+        <ul class="chem-bag persistent" style="width: 15em;">
+          <li id="mutate-input" class="chemical-receiver">drop a chemical here...</li>
+        </ul>
+        
+        <button id="mutate-button">Mutate the chemical...</button>
+        
+        <div id="mutate-output">
+        
+        </div>
+        
+    	</div>-->
+    	
+    	<div id="info-tab">
+    	
+        <p><a href="https://www.cs.york.ac.uk/nature/plazzmid/external/RUTSAC11/rutsac_worksheet.htm" target="_new">Worksheet</a></p>
+        
+        <p><a href="https://www.cs.york.ac.uk/nature/plazzmid/external/RUTSAC11/rutsac_prez.htm" target="_new">Presentation</a></p>
+    	
+        <p><a href="http://www-users.cs.york.ac.uk/~sjh/papers/10smtr1.pdf" target="_new">Stringmol technical specification</a>.</p>
+        
+        <!--<p><a href="http://www.cs.york.ac.uk/nature/plazzmid/wiki/index.php?title=StringmolWeb_Comments">TODO list on wiki</a> (link to be removed before the workshop).</p>-->
+    	
+    	  <p>
+          Contact details:<br />
+          Stringmol and Artificial Chemistry: <a href="mailto:sjh@cs.york.ac.uk">Simon Hickinbotham</a>, <a href="http://www.yccsa.org/" target="_new">YCCSA</a>, University of York, UK.<br />
+          Website technical details: <a href="mailto:adam.nellis@cs.york.ac.uk">Adam Nellis</a>, <a href="http://www.yccsa.org/" target="_new">YCCSA</a>, University of York, UK.
+        </p>
+        
+        <div>
+        <ul class="chem-bag persistent">
+          <chemical name="Original Replicase" number="50" string="OOGEOLHHHRLUEUOBBBRBXUUUDYGRHBLROORE$BLUBO^B>C$=?>$$BLUBO%}OYHOB"></chemical>
+        </ul>
+
+        <ul class="chem-bag persistent">
+          <chemical name="Broken Replicase" number="50" string="OOGEOLHHHRLUEUOBBBRBXUUUDYGRHBLROORE$BLUBO^B>C$=?A$$BLUBO%}OYHOB"></chemical>
+        </ul>
+
+        <ul class="chem-bag persistent">
+          <chemical name="Invasion Replicase" number="50" string="OOGEOLHHHRLUEUOBBBRBXUUUDYGRJBLROORE$BLUBO^B>C$=?>$$BLUBO%}OYHOB"></chemical>
+        </ul>
+
+        <ul class="chem-bag persistent">
+          <chemical name="Neutral mutation Replicase" number="50" string="OOGEOLHHHRLUEUOBBBRBXUUUDYGRHBLROORA$BLUBO^B>C$=?>$$BLUBO%}OYHOB"></chemical>
+        </ul>
+
+        <ul class="chem-bag persistent">
+          <chemical name="Parasite" number="1" string="OOGEOLHHHRLUEUOEBZZZXUUZZZZZZ"></chemical>
+        </ul>
+
+        <ul class="chem-bag persistent">
+          <chemical name="Hypercycle 1" number="50" string="OOGEOLHHHRLUEUOBRE$BLUBO^B>C$=?>$$BLUBO%}OYHOB"></chemical>
+          <chemical name="Hypercycle 2" number="50" string="BBBRBXUUUDYGRHBLROORE$BLUBO^B>C$=?>$$BLUBO%}OYHOB"></chemical>
+        </ul>
+
+        <ul class="chem-bag persistent">
+          <chemical name="Split replicator 1" number="50" string="RBXUUUDYGRHB$=?>$BLUBO%^AOYHOB"></chemical>
+          <chemical name="Split replicator 2" number="50" string="EOLHHHRLUEUO^$BLUBO>C^A^B^$BLUBO>C^$LUEUO>AOYHOB"></chemical>
+        </ul>
+        </div>
+    	
+    	</div><!-- info-tab -->
+    	
+    </div><!-- tabs -->
+
+  </div><!-- StringmolWeb -->
+
+</body>
+
+<!-- Mirrored from www.cs.york.ac.uk/nature/plazzmid/external/RUTSAC11/StringmolWeb/StableVersion/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Jul 2015 21:50:40 GMT -->
+</html>
